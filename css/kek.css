@@ -1,0 +1,33 @@
+html {
+	background: url("../images/background.png") no-repeat;
+	background-size: cover;
+}
+
+.center {
+	text-align: center;
+	margin: auto;
+}
+
+.joy {
+	width: 300px;
+	height: 300px;
+	position: absolute;
+	top: 10px;
+}
+
+.brexit {
+	font-size: 200px;
+	visibility: hidden;
+}
+
+#b, #x {
+	color: white;
+}
+
+#r, #i {
+	color: red;
+}
+
+#e, #t {
+	color: blue;
+}
