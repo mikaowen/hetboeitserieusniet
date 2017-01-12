@@ -37,3 +37,14 @@ html {
 	bottom: 5%;
 	left: 50%; 
 }
+
+#brexitGame {
+	font-size: 30px;
+	text-decoration: none;
+	color: #3f932c;
+}
+
+#brexitGame:hover {
+	font-size: 32px;
+	color: #4cba34;
+}
