@@ -1,0 +1,52 @@
+html {
+  background-repeat: no-repeat;
+  padding: 0;
+}
+
+body {
+  padding: 0;
+  background: url("../images/europe.png") no-repeat;
+  background-size: cover;
+  background-repeat: no-repeat;
+  font-family: cursive;
+}
+
+#uk {
+  position: relative;
+  margin-left: 2em;
+  margin-top: 80px;
+}
+
+#center {
+  color: #ecf0f1;
+}
+
+#perDone {
+  border: 2px solid black;
+  height: 100%;
+  width: 30px;
+  float: right;
+  position: relative;
+}
+
+#perBar {
+  overflow: hidden;
+  width: 100%;
+  background: red;
+  background: -webkit-linear-gradient(darkred, red, orange, yellow, limegreen, darkgreen);
+  background: -o-linear-gradient(darkred, red, orange, yellow, limegreen, darkgreen);
+  background: -moz-linear-gradient(darkred, red, orange, yellow, limegreen, darkgreen);
+  background: linear-gradient(darkred, red, orange, yellow, limegreen, darkgreen);
+  position: absolute;
+  bottom: 0;
+}
+
+#b, #r, #e, #x, #i, #t {
+	font-size: 11.5vh;
+	color: black;
+	visibility: hidden;
+}
+
+#brexit {
+	float: right;
+}
