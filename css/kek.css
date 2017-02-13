@@ -39,12 +39,24 @@ html {
 }
 
 #brexitGame {
-	font-size: 30px;
-	text-decoration: none;
-	color: #3f932c;
+	width: 200px;
+	height: 200px;
+	position: absolute;
+	bottom: 0;
+	margin-bottom: 5%;
+	margin-right: -5%;
+	border: 0 solid black;
 }
 
-#brexitGame:hover {
-	font-size: 32px;
-	color: #4cba34;
+#poly {
+	stroke: red;
+	stroke-width: 0;
+	color: rgba(0,0,0,255);
+	position: relative;
+	right: 200px;
+}
+
+#poly:hover {
+	stroke-width: 2;
+	color: rgba(255,0,0,0);
 }
