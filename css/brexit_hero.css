@@ -1,0 +1,57 @@
+html, body {
+  padding: 0;
+}
+
+html {
+  background: url("../images/union_jack.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+#defaultCanvas0 {
+  border: 1px solid black;
+  border-bottom-width: 2px;
+  border-right-width: 2px;
+  position: absolute;
+}
+
+#b, #r, #e, #x, #i, #t {
+	font-size: 11.5vh;
+	color: black;
+	visibility: hidden;
+  text-shadow: 5px 5px 5px #888888;
+}
+
+#brexit {
+  position: absolute;
+  right: 3%;
+  top: 1%;
+}
+
+#perDone {
+  border: 2px solid black;
+  height: 98%;
+  width: 30px;
+  right: .5%;
+  bottom: 1%;
+  float: right;
+  position: absolute;
+}
+
+#perBar {
+  overflow: hidden;
+  width: 100%;
+  height: 0%;
+  background: red;
+  background: -webkit-linear-gradient(darkred, red, orange, yellow, limegreen, darkgreen);
+  background: -o-linear-gradient(darkred, red, orange, yellow, limegreen, darkgreen);
+  background: -moz-linear-gradient(darkred, red, orange, yellow, limegreen, darkgreen);
+  background: linear-gradient(darkred, red, orange, yellow, limegreen, darkgreen);
+  position: absolute;
+  bottom: 0;
+}
+
+p, text {
+  font-size: 30px;
+  font-family: "Comic Sans MS";
+}
