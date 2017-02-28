@@ -7,12 +7,14 @@ function setup() {
   imgScope = loadImage("../images/scope.png");
   imgBrexitVoter = loadImage("../images/brexit_voter.png");
   imgEuVoter = loadImage("../images/eu_voter.png");
+  imgBackground = loadImage("../images/background_sniper_elite_5.png");
 }
 
 function draw() {
   clear();
   rect(0, 0, screenSizeX, screenSizeY);
   line(winLine+circleSize/2, 0, winLine+circleSize/2, screenSizeY);
+  image(imgBackground, 0, 0, 800, 600);
   line(winLine+circleSize/2+1, 0, winLine+circleSize/2+1, screenSizeY);
   spawnDelay = spawnDelay + (1/fps);
   if (boltProgress != 0 && boltProgress < boltTime) {

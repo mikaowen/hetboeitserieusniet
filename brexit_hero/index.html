@@ -5,13 +5,18 @@
     <link href="../css/brexit_hero.css" type="text/css" rel="stylesheet"></link>
   </head>
   <body>
-    <text id="score">Score: 0 / 1000</text>
-    <br>
-    <text id="hits">Hits: 0</text>
-    <br>
-    <text id="misses">Misses: 0</text>
-    <div id="perDone">
-      <div id="perBar"></div>
+    <div id="info">
+      <text id="score">Score: 0</text>
+      <br>
+      <text id="hits">Hits: 0</text>
+      <br>
+      <text id="misses">Misses: 0</text>
+    </div>
+    <div id="perDone" class="outerBar">
+      <div id="perBar" class="innerBar"></div>
+    </div>
+    <div id="progressBar" class="outerBar">
+      <div id="innerProgressBar" class="innerBar"></div>
     </div>
     <div id="brexit">
   		<text id="b" data-color="white">B</text>
