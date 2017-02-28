@@ -5,12 +5,16 @@ function setup() {
   fill(color(255, 255, 255));
   frameRate(fps);
   imgScope = loadImage("../images/scope.png");
+  imgBrexitVoter = loadImage("../images/brexit_voter.png");
+  imgEuVoter = loadImage("../images/eu_voter.png");
+  imgBackground = loadImage("../images/background_sniper_elite_5.png");
 }
 
 function draw() {
   clear();
   rect(0, 0, screenSizeX, screenSizeY);
   line(winLine+circleSize/2, 0, winLine+circleSize/2, screenSizeY);
+  image(imgBackground, 0, 0, 800, 600);
   line(winLine+circleSize/2+1, 0, winLine+circleSize/2+1, screenSizeY);
   spawnDelay = spawnDelay + (1/fps);
   if (boltProgress != 0 && boltProgress < boltTime) {
@@ -30,12 +34,10 @@ function draw() {
   for (let entity in entities) {
     entity = entities[entity];
     if (entity.type == "brexit") {
-      fill(color(255, 0, 0));
+      image(imgBrexitVoter, entity.x - 9, entity.y - 17, 20, 36);
     } else if (entity.type == "eu"){
-      fill(color(0, 0, 255));
-    }
-    ellipse(entity.x, entity.y, circleSize, circleSize);
-    fill(color(255, 255, 255))
+	  image(imgEuVoter, entity.x - 9, entity.y - 17, 20, 36);
+	}
 
     entity.x += entity.v;
     if (entity.x >= winLine) {
@@ -126,6 +128,10 @@ function isInCircle(xcenter, ycenter, r) {
   return (Math.pow(mouseX-xcenter, 2) + Math.pow(mouseY-ycenter, 2)) < Math.pow(r, 2);
 }
 
+function isInSquare(x, y, x1, y1, x2, y2) {
+	return (x >= x1 && x <= x2 && y >= y1 && y <= y2);
+}
+
 function playSound(sound) {
   sound.pause();
   sound.currentTime = 0;
@@ -140,7 +146,7 @@ function mouseClicked() {
   if (!scoped) {
     for (let entity in entities) {
       entity = entities[entity];
-      if (isInCircle(entity.x, entity.y, circleSize/2)) {
+      if (isInSquare(mouseX, mouseY, entity.x-9, entity.y-17, entity.x+9, entity.y + 18)) {
         if (entity.type == "brexit") {
           lose();
           break;

@@ -29,24 +29,44 @@ html {
 }
 
 #perDone {
-  border: 2px solid black;
-  height: 98%;
-  width: 30px;
   right: .5%;
-  bottom: 1%;
-  float: right;
-  position: absolute;
 }
 
 #perBar {
-  overflow: hidden;
-  width: 100%;
-  height: 0%;
   background: red;
   background: -webkit-linear-gradient(darkred, red, orange, yellow, limegreen, darkgreen);
   background: -o-linear-gradient(darkred, red, orange, yellow, limegreen, darkgreen);
   background: -moz-linear-gradient(darkred, red, orange, yellow, limegreen, darkgreen);
   background: linear-gradient(darkred, red, orange, yellow, limegreen, darkgreen);
+}
+
+#progressBar {
+  left: .5%;
+}
+
+#innerProgressBar {
+  background: -webkit-linear-gradient(#457fca, #5691c8);
+  background: -o-linear-gradient(#457fca, #5691c8);
+  background: -moz-linear-gradient(#457fca, #5691c8);
+  background: linear-gradient(#457fca, #5691c8);
+}
+
+#info {
+  text-align: center;
+}
+
+.outerBar {
+  border: 2px solid black;
+  height: 98%;
+  width: 30px;
+  bottom: 1%;
+  position: absolute;
+}
+
+.innerBar {
+  overflow: hidden;
+  width: 100%;
+  height: 0%;
   position: absolute;
   bottom: 0;
 }

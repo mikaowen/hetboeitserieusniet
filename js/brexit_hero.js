@@ -5,7 +5,7 @@ function setup() {
   fill(color(255, 255, 255));
 	textFont("Comic Sans MS");
   frameRate(fps);
-	let distance = ((screenSizeX - (6 * hitCircleSize)) / 7) + hitCircleSize / 2.5; //Not perfectly centered but I don't give a fuck
+	let distance = ((screenSizeX - (6 * hitCircleSize)) / 7) + hitCircleSize / 2.5;
 	for (let i = 0; i < 6; i++) {
 		lines[i] = distance;
 		distance += ((screenSizeX - (6 * hitCircleSize)) / 7) * 2;
@@ -16,10 +16,12 @@ function draw() {
 	clear();
 	rect(0, 0, screenSizeX, screenSizeY);
 	spawnDelay += 1 / fps;
-	document.getElementById("score").innerHTML = `Score: ${score} / ` + difficulty.score[level-1];
+	time += 1 / fps;
+	document.getElementById("score").innerHTML = `Score: ${score}`;
 	document.getElementById("hits").innerHTML = `Hits: ${hits}`;
 	document.getElementById("misses").innerHTML = `Misses: ${misses}`;
 	document.getElementById("perBar").style.height = Math.min(hp, 100) + "%";
+	document.getElementById("innerProgressBar").style.height = Math.min(Math.floor((time / difficulty.time[level-1])*100), 100) + "%";
 
 	textSize(hitCircleTextSize);
 	for (let i = 0; i < 6; i++) {
@@ -45,7 +47,7 @@ function draw() {
 		fill(0, 0, 0)
 		text(brexitLetters[entity.line], lines[entity.line] - (circleTextSize / 4), entity.y + (circleTextSize /3));
 
-		if (entity.y >= winLine + hitCircleSize / 4) {
+		if (entity.y - (circleSize / 2) >= winLine + hitCircleSize / 2) {
 			miss(entity.line);
 			kill(entity.uuid);
 		}
@@ -64,7 +66,7 @@ function draw() {
 		}
 	}
 
-	if (score >= difficulty.score[level-1]) {
+	if (time >= difficulty.time[level-1]) {
 		levelup();
 	}
 
@@ -82,6 +84,7 @@ function levelup() {
 	hits = 0;
 	misses = 0;
 	hp = 100;
+	time = 0;
 	letters[level-2].style.color = letters[level-2].dataset.color;
 	letters[level-2].style.visibility = "visible";
 	if (level >= 7) {
@@ -89,10 +92,12 @@ function levelup() {
 	}
 }
 
-function playSound(sound) {
-  sound.pause();
+function playSound(sound, volume) {
+	volume = volume || 1.0;
+	sound.volume = volume;
+	sound.pause();
   sound.currentTime = 0;
-  sound.play();
+  sound.play(volume);
 }
 
 function win() {
@@ -118,6 +123,7 @@ function lose() {
 	hits = 0;
 	misses = 0;
 	hp = 100;
+	time = 0;
 }
 
 //Credit to mikat
@@ -127,10 +133,25 @@ function isInCircle(x, y, xcenter, ycenter, r) {
 
 function checkHit(line) {
 	let isHit = false;
+	playSound(sounds[Math.floor(Math.random()*sounds.length)], 0.3);
 	for (entity in entities) {
 		entity = entities[entity];
-		if (isInCircle(entity.x, entity.y, lines[line], winLine, hitCircleSize / 2)) {
-			hit(line);
+		if (
+		!isInCircle(entity.x, entity.y, lines[line], winLine, hitCircleSize / 2)
+		&& isInCircle(entity.x, entity.y, lines[line], winLine, (hitCircleSize / 2) + (circleSize / 2))
+		) {
+			hit(line, 50);
+			kill(entity.uuid);
+			return true;
+		} else if (
+		isInCircle(entity.x, entity.y, lines[line], winLine, hitCircleSize / 2)
+		&& !isInCircle(entity.x, entity.y, lines[line], winLine, hitCircleSize / 4)
+		) {
+			hit(line, 100);
+			kill(entity.uuid);
+			return true;
+		} else if (isInCircle(entity.x, entity.y, lines[line], winLine, hitCircleSize / 2)) {
+			hit(line, 300);
 			kill(entity.uuid);
 			return true;
 		}
@@ -148,11 +169,15 @@ function miss(line) {
 	hp = Math.max(hp - difficulty.hpMiss[level-1], 0);
 }
 
-function hit(line) {
-	score += 100;
+function hit(line, amount) {
+	score += amount;
 	hits++;
-	addScore("+100", "green", lines[line] - (circleSize / 2), winLine + 60, 1.0)
-	hp = Math.min(hp + difficulty.hpHit[level-1], 100);
+	addScore(`+${amount}`, "green", lines[line] - (circleSize / 2), winLine + 60, 1.0)
+	if (amount == 300) {
+		hp = Math.min(hp + difficulty.hpHit[level-1], 100);
+	} else {
+		hp = Math.max(hp - (difficulty.hpMiss[level-1]*hitFactors[amount]), 0);
+	}
 }
 
 function keyPressed() {
@@ -250,6 +275,14 @@ const colors = [
 	[255, 0, 0],
 	[0, 0, 255]
 ];
+const sounds = [
+	new Audio("../audio/hi_hat.wav"),
+	new Audio("../audio/drum.wav")
+];
+const hitFactors = {
+	100: 0.2,
+	50: 0.5
+}
 let entities = {};
 let uuids = [];
 let score = 0;
@@ -259,6 +292,7 @@ let level = 1;
 let lines = [];
 let scoreText = [];
 let hp = 100;
+let time = 0.0;
 const difficulty = {
 	v: [
 		5.0,
@@ -277,12 +311,12 @@ const difficulty = {
 		0.5
 	],
 	time: [
-		20,
-		40,
-		60,
-		80,
-		100,
-		120
+		35.0,
+		60.0,
+		80.0,
+		100.0,
+		120.0,
+		150.0
 	],
 	hpMiss: [
 		10,
@@ -299,14 +333,6 @@ const difficulty = {
 		5,
 		4,
 		3
-	],
-	score: [
-		1000,
-		2000,
-		3000,
-		4000,
-		4500,
-		5000
 	]
 };
 let spawnDelay = difficulty.delay[0];
