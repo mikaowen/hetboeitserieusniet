@@ -2,7 +2,9 @@
   <head>
     <title>JACK DID BREXIT &#128514; &#128514;</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.7/p5.min.js"></script>
+    <script src="../js/help.js"></script>
     <link href="../css/brexit_hero.css" type="text/css" rel="stylesheet"></link>
+    <link href="../css/help.css" type="text/css" rel="stylesheet"></link>
   </head>
   <body>
     <div id="info">
@@ -31,6 +33,23 @@
 		    <br>
     	<text id="t" data-color="blue">T</text>
 	  </div>
+    <div class="help">
+      <h1 style="text-align: center;">Brexit Hero</h1>
+      <br>
+      <p class="help-explanation">
+        When the hit-circle reaches the hit-line press the corresponding key on the keyboard.
+        Try to click as soon as the hit-circle is in the center of the other circle to maximize score.
+        You are judged on your accuracy, <span style="color: green;">300</span> for the center, <span style="color: green;">100</span> for just out the center, <span style="color: green;">50</span> for the outer ring and <span style="color: red;">-500</span> for a mis.
+        You also lose <span style="color: red;">500</span> score for clicking a button that you were not meant to press.
+        When you get less than <span style="color: green;">300</span> score for a click you lose health but when you hit a <span style="color: green;">300</span> you gain health.
+        If you run out of health (right bar) you have to restart the level.
+        The timer (left bar) shows the amount of time to survive in order to pass the level.
+        With each level you complete the circles go faster, spawn faster, your health goes down faster and up slower.
+        Complete all 6 levels to spell 'brexit' on the sidebar to win the game.
+      </p>
+      <button class="help-exit-button" onclick="toggleInfo();">X</button>
+    </div>
+    <button class="info" onclick="toggleInfo();">?</button>
   </body>
   <script src="../js/brexit_hero.js"></script>
 </html>

@@ -52,6 +52,8 @@ html {
 }
 
 #info {
+  position: relative;
+  z-index: 0;
   text-align: center;
 }
 

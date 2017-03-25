@@ -1,0 +1,66 @@
+.info {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  background-color: #428bca;
+  color: white;
+  border: 1px solid black;
+  bottom: 1%;
+  font-size: 25px;
+  font-family: "Comic Sans MS";
+  position: absolute;
+  right: 55px;
+}
+
+.info:focus, .help-exit-button:focus {
+  outline: 0;
+}
+
+.info:active, .help-exit-button:active{
+  width: 48px !important;
+  height: 48px !important;
+}
+
+.help {
+  width: 80%;
+  height: 80%;
+  background-color: rgba(91, 192, 222, 200);
+  border: 3px solid black;
+  text-align: center;
+  z-index: 1;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+  font-family: "Comic Sans MS";
+  visibility: hidden;
+}
+
+.info:hover, .help-exit-button:hover {
+  border: 2px solid black;
+}
+
+.help h1 {
+  font-size: 50px;
+  text-align: center;
+}
+
+.help-explanation {
+  font-size: 25px;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.help-exit-button {
+  background-color: #ff4d4d;
+  width: 50px;
+  height: 50px;
+  border: 1px solid black;
+  border-radius: 50%;
+  position: absolute;
+  top: -25px;
+  right: -25px;
+  z-index: 2;
+  font-size: 25px;
+  font-family: "Comic Sans MS";
+}

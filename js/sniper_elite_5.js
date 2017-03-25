@@ -138,6 +138,13 @@ function playSound(sound) {
   sound.play();
 }
 
+function keyPressed() {
+	if (key == ESCAPE && scoped) {
+		scoped = false;
+		playSound(soundScope);
+	}
+}
+
 function mouseClicked() {
   if (boltProgress != 0) {
     return;
