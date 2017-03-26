@@ -3,6 +3,9 @@
 		<meta charset="UTF-8">
 		<title>JACK DID BREXIT &#128514;&#128514;</title>
 		<link href="../css/masher.css" type="text/css" rel="stylesheet">
+		<link href="../css/help.css" type="text/css" rel="stylesheet">
+		<script src="../js/help.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.7/p5.min.js"></script>
 	</head>
 	<body>
     <img src="../images/england.png" id="uk"/>
@@ -22,7 +25,21 @@
 		</div>
 	</body>
 	<div id="center" align="center">
-        <h1 id="progressH1">BREXIT VOTES: 0</h1>
-    </div>
+    <h1 id="progressH1">BREXIT VOTES: 0</h1>
+  </div>
+	<div class="help">
+		<h1>Masher</h1>
+		<p class="help-explanation">
+			In masher you have to mash your spacebar in order to vote for brexit.
+			There is one problem, there are also EU-voters that will reduce the amount of brexit votes.
+			You have to vote for brexit faster then they can vote for EU.
+			The bar on the side indicates the amount of votes you have.
+			If you reach 100 brexit votes you will go the next level and get a letter from 'brexit'.
+			Complete all 6 levels and spell brexit to finish the game.
+			But with each level you complete it gets more difficult because speed that the EU-voters vote at will increase.
+		</p>
+		<button class="help-exit-button" onclick="toggleInfo();">X</button>
+	</div>
+	<button class="info" onclick="toggleInfo();">?</button>
   <script src="../js/masher.js"></script>
 </html>

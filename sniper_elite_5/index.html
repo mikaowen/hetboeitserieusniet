@@ -2,7 +2,9 @@
   <head>
     <title>JACK DID BREXIT &#128514; &#128514;</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.7/p5.min.js"></script>
+    <script src="../js/help.js"></script>
     <link href="../css/sniper_elite_5.css" type="text/css" rel="stylesheet"></link>
+    <link href="../css/help.css" type="text/css" rel="stylesheet"></link>
   </head>
   <body>
     <p id="kills">0 Kills</p>
@@ -12,17 +14,33 @@
     </div>
     <div id="brexit">
   		<text id="b" data-color="white">B</text>
-		<br>
+		  <br>
   		<text id="r" data-color="red">R</text>
-		<br>
+		  <br>
    		<text id="e" data-color="blue">E</text>
-		<br>
+		  <br>
    		<text id="x" data-color="white">X</text>
-		<br>
+		  <br>
    		<text id="i" data-color="red">I</text>
-		<br>
+		  <br>
     	<text id="t" data-color="blue">T</text>
-	</div>
+	  </div>
+    <div class="help">
+      <h1>Sniper Elite 5</h1>
+      <p class="help-explanation">
+        In Sniper Elite 5 you have to shoot the EU-voters, and help the Brexit-voters make it to the end.
+        You are equiped with a bolt-action sniper rifle, this means you have to re-chamber the bullet after each shot, which takes some time.
+        You are able to scope in using your left mouse button, once you're in the scope you can shoot by pressing left mouse again.
+        But watch out, you don't want to shoot the Brexit-voters (dressed in black), when you shoot one of them you have to restart the level.
+        Also make sure the EU-Voters (dressed in green) don't make it to the end, if one of them does you will have to restart the level.
+        Your goal is to reach the required amount of votes indicated by the progress bar on the right or the vote counter in the top left.
+        If you successfully reach the required amount of votes you will pass the level and get one of the letters of 'brexit'.
+        Get all 6 to win the game, note that the levels will get harder as you progress.
+        People will start to move more quickly, spawm more frequently and you will need more votes to complete the level.
+      </p>
+      <button class="help-exit-button" onclick="toggleInfo();">X</button>
+    </div>
+    <button class="info" onclick="toggleInfo();">?</button>
   </body>
   <script src="../js/sniper_elite_5.js"></script>
 </html>

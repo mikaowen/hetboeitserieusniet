@@ -54,11 +54,11 @@ function draw() {
 	}
 	fill(255, 255, 255);
 
-	for (key in scoreText) {
-		textObject = scoreText[key];
+	for (objectName in scoreText) {
+		textObject = scoreText[objectName];
 		textObject.time -= 1 / fps;
 		if (textObject.time <= 0) {
-			delete scoreText[key];
+			delete scoreText[objectName];
 		} else {
 			setColorByName(textObject.color);
 			text(textObject.text, textObject.x, textObject.y);
