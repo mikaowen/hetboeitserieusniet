@@ -18,7 +18,8 @@ function signIn() {
 
       console.log(token)
       console.log(user)
-
+      
+      document.getElementById("navbar-image").style.visibility = "visible";
       firebase.database().ref("users/" + firebase.auth().currentUser.uid).once("value").then(function(snapshot) {
         if (!snapshot.val()) {
           firebase.database().ref("users/" + firebase.auth().currentUser.uid).set({
@@ -42,6 +43,7 @@ function signIn() {
 function signOut() {
   firebase.auth().signOut().then(function() {
     document.getElementById("navbar-image").src = "";
+    document.getElementById("navbar-image").style.visibility = "hidden";
     document.getElementById("navbar-username").innterHTML = "";
     console.log("Signed out.");
   });
