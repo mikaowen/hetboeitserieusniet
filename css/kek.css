@@ -71,3 +71,9 @@ html {
 	stroke-width: 2;
 	color: rgba(255,0,0,0);
 }
+
+.pimssister {
+	position: absolute;
+	bottom: 5%;
+	left: 50%;
+}
