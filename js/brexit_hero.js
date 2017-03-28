@@ -367,10 +367,12 @@ function queryLeaderboard(page) {
 						document.querySelector(`.leaderboardEntry[data-entry='${i}'] .leaderboardTime`).innerHTML = `Time: ${mins}:${secs}`;
 					}
 					db.ref("users/" + child.key + "/image").once("value").then(function(snap) {
-						if (snap.val()) {
-							document.querySelector(`.leaderboardEntry[data-entry='${i}'] .leaderboardImage`).style.backgroundImage = `url(${snap.val()})`;
-						}
-					})
+						db.ref("scores/" + child.key + "/ranking").once("value").then(function(shot) {
+							if (snap.val() && shot.val()) {
+								document.querySelector(`.leaderboardEntry[data-entry='${shot.val().ranking - (9 * (page - 1))}'] .leaderboardImage`).style.backgroundImage = `url(${snap.val()})`;
+							}
+						});
+					});
 					i++;
 				});
 			}
