@@ -539,7 +539,7 @@ function toggleGamemode() {
 	}
 	lose();
 	level = 0;
-	for (let i = 0; i < 6 i++) {
+	for (let i = 0; i < 6; i++) {
 		letters[i].style.visibility = "hidden";
 	}
 }
