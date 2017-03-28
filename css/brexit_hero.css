@@ -1,25 +1,18 @@
-html, body {
-  padding: 0;
-}
-
 html {
   background: url("../images/union_jack.png");
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
 
-#defaultCanvas0 {
-  border: 1px solid black;
-  border-bottom-width: 2px;
-  border-right-width: 2px;
-  position: absolute;
-}
-
 #b, #r, #e, #x, #i, #t {
-	font-size: 11.5vh;
+	font-size: 8.5vh;
 	color: black;
 	visibility: hidden;
   text-shadow: 5px 5px 5px #888888;
+}
+
+#toggleGamemode {
+  background-color: red;
 }
 
 #brexit {
@@ -52,9 +45,28 @@ html {
 }
 
 #info {
-  position: relative;
   z-index: 0;
-  text-align: center;
+}
+
+#start {
+  background-color: limegreen;
+}
+
+#button-list {
+  position: absolute;
+  bottom: 1%;
+  right: 55px;
+  margin: 0;
+  list-style-type: none;
+  padding: 0;
+  width: 50px;
+}
+
+#button-list button {
+  display: block;
+  width: 50px;
+  margin-top: 5px;
+  position: static;
 }
 
 .outerBar {
