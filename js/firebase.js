@@ -41,6 +41,8 @@ function signIn() {
 
 function signOut() {
   firebase.auth().signOut().then(function() {
+    document.getElementById("navbar-image").src = "";
+    document.getElementById("navbar-username").innterHTML = "";
     console.log("Signed out.");
   });
 }
