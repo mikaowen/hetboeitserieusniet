@@ -2,54 +2,104 @@
   <head>
     <title>JACK DID BREXIT &#128514; &#128514;</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.7/p5.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.7.3/firebase.js"></script>
     <script src="../js/help.js"></script>
     <link href="../css/brexit_hero.css" type="text/css" rel="stylesheet"></link>
     <link href="../css/help.css" type="text/css" rel="stylesheet"></link>
+    <link href="../css/navbar.css" type="text/css" rel="stylesheet"></link>
+    <link href="../css/util.css" type="text/css" rel="stylesheet"></link>
+    <link href="../css/highscore.css" type="text/css" rel="stylesheet"></link>
+    <script src="../js/firebase.js"></script>
   </head>
   <body>
-    <div id="info">
-      <text id="score">Score: 0</text>
-      <br>
-      <text id="hits">Hits: 0</text>
-      <br>
-      <text id="misses">Misses: 0</text>
+    <div class="main-container">
+      <div id="perDone" class="outerBar">
+        <div id="perBar" class="innerBar"></div>
+      </div>
+      <div id="progressBar" class="outerBar">
+        <div id="innerProgressBar" class="innerBar"></div>
+      </div>
+      <div id="brexit">
+    		<text id="b" data-color="white">B</text>
+  		    <br>
+    		<text id="r" data-color="red">R</text>
+  		    <br>
+     		<text id="e" data-color="blue">E</text>
+  		    <br>
+     		<text id="x" data-color="white">X</text>
+  		    <br>
+     		<text id="i" data-color="red">I</text>
+  		    <br>
+      	<text id="t" data-color="blue">T</text>
+  	  </div>
+      <div class="help">
+        <h1 style="text-align: center;">Brexit Hero</h1>
+        <br>
+        <p class="help-explanation">
+          When the hit-circle reaches the hit-line press the corresponding key on the keyboard.
+          Try to click as soon as the hit-circle is in the center of the other circle to maximize score.
+          You are judged on your accuracy, <span style="color: green;">300</span> for the center, <span style="color: green;">100</span> for just out the center and <span style="color: green;">50</span> for the outer ring.
+          You also get a <span style="color: red;">miss</span> for clicking a button that you were not meant to press.
+          When you get less than <span style="color: green;">300</span> score for a click you lose health but when you hit a <span style="color: green;">300</span> you gain health.
+          If you run out of health (right bar) you have to restart the level.
+          The timer (left bar) shows the amount of time to survive in order to pass the level.
+          With each level you complete the circles go faster, spawn faster, your health goes down faster and up slower.
+          Complete all 6 levels to spell 'brexit' on the sidebar to win the game.
+        </p>
+        <button class="exit-button" onclick="toggleInfo();">X</button>
+      </div>
+      <div id="scorePrompt">
+        <h1>Final Score</h1>
+        <ul>
+          <li><text id="scorePromptScore">Score: 0</text></li>
+          <li><text id="scorePromptAccuracy">Accuracy: 0%</text></li>
+          <li><text id="scorePromptCombo">Max Combo: 0</text></li>
+        </ul>
+        <button class="exit-button" onclick="promptScore();">X</button>
+      </div>
+      <div id="leaderboard">
+        <h1>Leaderboard</h1>
+        <table>
+          <tr class="leaderboardEntry" data-entry="1"><td><text class="leaderboardRanking">#1</text></td><td width="50"><div class="leaderboardImage"></div></td><td><text class="leaderboardName">Bill Nye</text></td><td><text class="leaderboardScore">Score: 0</text></td><td><text class="leaderboardAccuracy">Accuracy: 0.00%</text></td><td><text class="leaderboardCombo">Max Combo: 0x</text></td><td><text class="leaderboardTime">Time: 00:00</text></td></tr>
+          <tr class="leaderboardEntry" data-entry="2"><td><text class="leaderboardRanking">#2</text></td><td width="50"><div class="leaderboardImage"></div></td><td><text class="leaderboardName">Bill Nye</text></td><td><text class="leaderboardScore">Score: 0</text></td><td><text class="leaderboardAccuracy">Accuracy: 0.00%</text></td><td><text class="leaderboardCombo">Max Combo: 0x</text></td><td><text class="leaderboardTime">Time: 00:00</text></td></tr>
+          <tr class="leaderboardEntry" data-entry="3"><td><text class="leaderboardRanking">#3</text></td><td width="50"><div class="leaderboardImage"></div></td><td><text class="leaderboardName">Bill Nye</text></td><td><text class="leaderboardScore">Score: 0</text></td><td><text class="leaderboardAccuracy">Accuracy: 0.00%</text></td><td><text class="leaderboardCombo">Max Combo: 0x</text></td><td><text class="leaderboardTime">Time: 00:00</text></td></tr>
+          <tr class="leaderboardEntry" data-entry="4"><td><text class="leaderboardRanking">#4</text></td><td width="50"><div class="leaderboardImage"></div></td><td><text class="leaderboardName">Bill Nye</text></td><td><text class="leaderboardScore">Score: 0</text></td><td><text class="leaderboardAccuracy">Accuracy: 0.00%</text></td><td><text class="leaderboardCombo">Max Combo: 0x</text></td><td><text class="leaderboardTime">Time: 00:00</text></td></tr>
+          <tr class="leaderboardEntry" data-entry="5"><td><text class="leaderboardRanking">#5</text></td><td width="50"><div class="leaderboardImage"></div></td><td><text class="leaderboardName">Bill Nye</text></td><td><text class="leaderboardScore">Score: 0</text></td><td><text class="leaderboardAccuracy">Accuracy: 0.00%</text></td><td><text class="leaderboardCombo">Max Combo: 0x</text></td><td><text class="leaderboardTime">Time: 00:00</text></td></tr>
+          <tr class="leaderboardEntry" data-entry="6"><td><text class="leaderboardRanking">#6</text></td><td width="50"><div class="leaderboardImage"></div></td><td><text class="leaderboardName">Bill Nye</text></td><td><text class="leaderboardScore">Score: 0</text></td><td><text class="leaderboardAccuracy">Accuracy: 0.00%</text></td><td><text class="leaderboardCombo">Max Combo: 0x</text></td><td><text class="leaderboardTime">Time: 00:00</text></td></tr>
+          <tr class="leaderboardEntry" data-entry="7"><td><text class="leaderboardRanking">#7</text></td><td width="50"><div class="leaderboardImage"></div></td><td><text class="leaderboardName">Bill Nye</text></td><td><text class="leaderboardScore">Score: 0</text></td><td><text class="leaderboardAccuracy">Accuracy: 0.00%</text></td><td><text class="leaderboardCombo">Max Combo: 0x</text></td><td><text class="leaderboardTime">Time: 00:00</text></td></tr>
+          <tr class="leaderboardEntry" data-entry="8"><td><text class="leaderboardRanking">#8</text></td><td width="50"><div class="leaderboardImage"></div></td><td><text class="leaderboardName">Bill Nye</text></td><td><text class="leaderboardScore">Score: 0</text></td><td><text class="leaderboardAccuracy">Accuracy: 0.00%</text></td><td><text class="leaderboardCombo">Max Combo: 0x</text></td><td><text class="leaderboardTime">Time: 00:00</text></td></tr>
+          <tr class="leaderboardEntry" data-entry="9"><td><text class="leaderboardRanking">#9</text></td><td width="50"><div class="leaderboardImage"></div></td><td><text class="leaderboardName">Bill Nye</text></td><td><text class="leaderboardScore">Score: 0</text></td><td><text class="leaderboardAccuracy">Accuracy: 0.00%</text></td><td><text class="leaderboardCombo">Max Combo: 0x</text></td><td><text class="leaderboardTime">Time: 00:00</text></td></tr>
+          <tr class="leaderboardEntry" data-entry="10"><td><text class="leaderboardRanking">#10</text></td><td width="50"><div class="leaderboardImage"></div></td><td><text class="leaderboardName">Bill Nye</text></td><td><text class="leaderboardScore">Score: 0</text></td><td><text class="leaderboardAccuracy">Accuracy: 0.00%</text></td><td><text class="leaderboardCombo">Max Combo: 0x</text></td><td><text class="leaderboardTime">Time: 00:00</text></td></tr>
+        </table>
+        <div id="leaderboardButtons">
+          <button id="leaderboardLastPage" onclick="leaderboardLastPage();" class="leaderboardButton circle-button"><</button>
+          <input type="number" id="leaderboardPage" value=1></input>
+          <button id="leaderboardNextPage" onclick="leaderboardNextPage();" class="leaderboardButton circle-button">></button>
+        </div>
+      </div>
+      <ul id="button-list">
+        <li><button id="start" class="circle-button" onclick="start();" title="Start / Stop">✔</button></li>
+        <li><button id="toggleGamemode" class="circle-button" onclick="toggleGamemode();" title="Endless Mode">∞</button></li>
+        <li><button id="leaderboardButton" class="circle-button" onclick="promptLeaderboard(); queryUserLeaderboard(); queryLeaderboard(1);" title="Leaderboard">🏆</button></li>
+        <li><button class="info circle-button" onclick="toggleInfo();" title="Help">?</button></li>
+      </ul>
     </div>
-    <div id="perDone" class="outerBar">
-      <div id="perBar" class="innerBar"></div>
+    <div id="navbar">
+      <ul>
+        <li><text id="combo" class="scores">Combo: 0</text></li>
+        <li><text id="score" class="scores">Score: 0</text></li>
+        <li><text id="accuracy" class="scores">Accuracy: 100%</text></li>
+      </ul>
+      <div id="nav-buttons">
+        <button id="logout" onclick="signOut()" class="nav-button">Sign out</button>
+        <button id="login" onclick="signIn();" class="nav-button">Sign in with Google</button>
+      </div>
+      <div id="navbar-profile">
+        <img id="navbar-image"></img>
+        <text id="navbar-username"></text>
+      </div>
     </div>
-    <div id="progressBar" class="outerBar">
-      <div id="innerProgressBar" class="innerBar"></div>
-    </div>
-    <div id="brexit">
-  		<text id="b" data-color="white">B</text>
-		    <br>
-  		<text id="r" data-color="red">R</text>
-		    <br>
-   		<text id="e" data-color="blue">E</text>
-		    <br>
-   		<text id="x" data-color="white">X</text>
-		    <br>
-   		<text id="i" data-color="red">I</text>
-		    <br>
-    	<text id="t" data-color="blue">T</text>
-	  </div>
-    <div class="help">
-      <h1 style="text-align: center;">Brexit Hero</h1>
-      <br>
-      <p class="help-explanation">
-        When the hit-circle reaches the hit-line press the corresponding key on the keyboard.
-        Try to click as soon as the hit-circle is in the center of the other circle to maximize score.
-        You are judged on your accuracy, <span style="color: green;">300</span> for the center, <span style="color: green;">100</span> for just out the center, <span style="color: green;">50</span> for the outer ring and <span style="color: red;">-500</span> for a mis.
-        You also lose <span style="color: red;">500</span> score for clicking a button that you were not meant to press.
-        When you get less than <span style="color: green;">300</span> score for a click you lose health but when you hit a <span style="color: green;">300</span> you gain health.
-        If you run out of health (right bar) you have to restart the level.
-        The timer (left bar) shows the amount of time to survive in order to pass the level.
-        With each level you complete the circles go faster, spawn faster, your health goes down faster and up slower.
-        Complete all 6 levels to spell 'brexit' on the sidebar to win the game.
-      </p>
-      <button class="help-exit-button" onclick="toggleInfo();">X</button>
-    </div>
-    <button class="info" onclick="toggleInfo();">?</button>
   </body>
   <script src="../js/brexit_hero.js"></script>
+  <script src="../js/highscore.js"></script>
 </html>

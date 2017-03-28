@@ -12,11 +12,11 @@
   right: 55px;
 }
 
-.info:focus, .help-exit-button:focus {
+.info:focus {
   outline: 0;
 }
 
-.info:active, .help-exit-button:active{
+.info:active {
   width: 48px !important;
   height: 48px !important;
 }
@@ -36,7 +36,7 @@
   visibility: hidden;
 }
 
-.info:hover, .help-exit-button:hover {
+.info:hover {
   border: 2px solid black;
 }
 
@@ -49,18 +49,4 @@
   font-size: 25px;
   margin-left: 5%;
   margin-right: 5%;
-}
-
-.help-exit-button {
-  background-color: #ff4d4d;
-  width: 50px;
-  height: 50px;
-  border: 1px solid black;
-  border-radius: 50%;
-  position: absolute;
-  top: -25px;
-  right: -25px;
-  z-index: 2;
-  font-size: 25px;
-  font-family: "Comic Sans MS";
 }
