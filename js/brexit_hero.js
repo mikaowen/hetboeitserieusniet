@@ -367,7 +367,7 @@ function queryLeaderboard(page) {
 					} else {
 						document.querySelector(`.leaderboardEntry[data-entry='${i}'] .leaderboardTime`).innerHTML = `Time: ${mins}:${secs}`;
 					}
-					db.ref("users/" + child.getKey() + "/image").once("value").then(function(snap) {
+					db.ref("users/" + child.key + "/image").once("value").then(function(snap) {
 						if (snap.val()) {
 							document.querySelector(`.leaderboardEntry[data-entry='${i}'] .leaderboardImage`).style.backgroundImage = `url(${snap.val()})`;
 						}
@@ -538,6 +538,10 @@ function toggleGamemode() {
 		gamemode = "campaign";
 	}
 	lose();
+	level = 0;
+	for (let i = 0; i < 6 i++) {
+		letters[i].style.visibility = "hidden";
+	}
 }
 
 const anthem = new Audio("../audio/anthem.mp3");
