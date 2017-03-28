@@ -346,7 +346,6 @@ function addScore(text, color, x, y, time) {
 
 function queryLeaderboard(page) {
 	if (firebase.auth().currentUser != null) {
-		//Credit to mikat
 		db.ref("scores").orderByChild("ranking").startAt(9 * (page - 1) + 1).endAt(9 * page + 1).limitToFirst(9).once("value").then(function(snapshot) {
 
 			let i = 1;
@@ -462,7 +461,7 @@ function submitHighscore() {
 				db.ref("scores").orderByChild("ranking").once("value").then(function(shot) {
 					console.log("updating leaderboard positions");
 					shot.forEach(function(child) {
-						if (ranking <= child.val().ranking && child.key != uid) {
+						if (ranking < child.val().ranking && child.key != uid) {
 							let rank = child.val().ranking + 1;
 							db.ref("scores/" + child.key).update({
 								ranking: rank
