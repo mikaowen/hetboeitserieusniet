@@ -62,12 +62,15 @@ function leaderboardLastPage() {
 }
 
 setInterval(function() {
-	if (leaderboardVisible && lastText != document.getElementById("leaderboardPage").value && isNumber(document.getElementById("leaderboardPage").value) && Number(document.getElementById("leaderboardPage").value) > 0) {
+	if (leaderboardVisible && lastText != document.getElementById("leaderboardPage").value && isNumber(document.getElementById("leaderboardPage").value) && Number(document.getElementById("leaderboardPage").value)) {
+		if (document.getElementById("leaderboardPage").value != Math.abs(document.getElementById("leaderboardPage").value)) {
+			document.getElementById("leaderboardPage").value = Math.abs(document.getElementById("leaderboardPage").value);
+		}
 		queryUserLeaderboard();
 		queryLeaderboard(Number(document.getElementById("leaderboardPage").value));
 	}
 	lastText = document.getElementById("leaderboardPage").value;
-}, 100)
+}, 100);
 
 function checkKey(event) {
   event = event || window.event;

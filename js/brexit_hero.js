@@ -153,8 +153,14 @@ function start() {
 	started = !started;
 	paused = !paused;
 	if (started) {
+		document.getElementById("start").innerHTML = "X";
+		document.getElementById("start").style.backgroundColor = "red";
+		document.getElementById("start").title = "Stop";
 		loop();
 	} else {
+		document.getElementById("start").innerHTML = "✔";
+		document.getElementById("start").style.backgroundColor = "limegreen";
+		document.getElementById("start").title = "Start";
 		noLoop();
 		lose();
 	}
@@ -190,6 +196,7 @@ function lose() {
 	misses = 0;
 	hp = 100;
 	time = 0;
+	accuracy = 0;
 	started = false;
 	paused = true;
 	noLoop();
@@ -203,6 +210,9 @@ function isInCircle(x, y, xcenter, ycenter, r) {
 }
 
 function checkHit(line) {
+	if (!started) {
+		return;
+	}
 	let isHit = false;
 	playSound(sounds[Math.floor(Math.random()*sounds.length)], 0.3);
 	for (entity in entities) {
@@ -347,11 +357,23 @@ function addScore(text, color, x, y, time) {
 function queryLeaderboard(page) {
 	if (firebase.auth().currentUser != null) {
 		db.ref("scores").orderByChild("ranking").startAt(9 * (page - 1) + 1).endAt(9 * page + 1).limitToFirst(9).once("value").then(function(snapshot) {
-
+			if (page == 1) {
+				document.querySelector(".leaderboardEntry[data-entry='1']").style.backgroundColor = "#D9A441";
+				document.querySelector(".leaderboardEntry[data-entry='2']").style.backgroundColor = "#A8A8A8";
+				document.querySelector(".leaderboardEntry[data-entry='3']").style.backgroundColor = "#965A38";
+			} else if (page >= 2) {
+				for (let i = 1; i < 4; i++) {
+					document.querySelector(`.leaderboardEntry[data-entry='${i}']`).style.backgroundColor = "";
+				}
+			}
 			let i = 1;
 			if (snapshot.val() != null) {
 				snapshot.forEach(function(child) {
-					document.querySelector(`.leaderboardEntry[data-entry='${i}'] .leaderboardName`).innerHTML = child.val().name;
+					let name = child.val().name;
+					if (name.length > 15) {
+						name = name.substring(0, 15) + "...";
+					}
+					document.querySelector(`.leaderboardEntry[data-entry='${i}'] .leaderboardName`).innerHTML = name;
 					document.querySelector(`.leaderboardEntry[data-entry='${i}'] .leaderboardScore`).innerHTML = `Score: ${child.val().score}`;
 					document.querySelector(`.leaderboardEntry[data-entry='${i}'] .leaderboardCombo`).innerHTML = `Max Combo: ${child.val().combo}x`;
 					document.querySelector(`.leaderboardEntry[data-entry='${i}'] .leaderboardAccuracy`).innerHTML = `Accuracy: ${child.val().accuracy}%`;
@@ -369,7 +391,7 @@ function queryLeaderboard(page) {
 					db.ref("users/" + child.key + "/image").once("value").then(function(snap) {
 						db.ref("scores/" + child.key + "/ranking").once("value").then(function(shot) {
 							if (snap.val() && shot.val()) {
-								document.querySelector(`.leaderboardEntry[data-entry='${shot.val().ranking - (9 * (page - 1))}'] .leaderboardImage`).style.backgroundImage = `url(${snap.val()})`;
+								document.querySelector(`.leaderboardEntry[data-entry='${shot.val() - (9 * (page - 1))}'] .leaderboardImage`).style.backgroundImage = `url(${snap.val()})`;
 							}
 						});
 					});
@@ -383,7 +405,7 @@ function queryLeaderboard(page) {
 				document.querySelector(`.leaderboardEntry[data-entry='${i}'] .leaderboardAccuracy`).innerHTML = "";
 				document.querySelector(`.leaderboardEntry[data-entry='${i}'] .leaderboardTime`).innerHTML = "";
 				document.querySelector(`.leaderboardEntry[data-entry='${i}'] .leaderboardRanking`).innerHTML = `#${(page - 1) * 9 + i}`;
-				document.querySelector(`.leaderboardEntry[data-entry='${i}'] .leaderboardImage`).src = "";
+				document.querySelector(`.leaderboardEntry[data-entry='${i}'] .leaderboardImage`).style.backgroundImage = "";
 				i++;
 			}
 		});
@@ -405,7 +427,11 @@ function queryUserLeaderboard() {
 		});
 		db.ref("scores/" + uid).once("value").then(function(snapshot) {
 			if (snapshot.val()) {
-				document.querySelector(".leaderboardEntry[data-entry='10'] .leaderboardName").innerHTML = snapshot.val().name;
+				let name = snapshot.val().name;
+				if (name.length > 15) {
+					name = name.substring(0, 15) + "...";
+				}
+				document.querySelector(".leaderboardEntry[data-entry='10'] .leaderboardName").innerHTML = name;
 				document.querySelector(".leaderboardEntry[data-entry='10'] .leaderboardScore").innerHTML = `Score: ${snapshot.val().score}`;
 				document.querySelector(".leaderboardEntry[data-entry='10'] .leaderboardCombo").innerHTML = `Max Combo: ${snapshot.val().combo}x`;
 				document.querySelector(".leaderboardEntry[data-entry='10'] .leaderboardAccuracy").innerHTML = `Accuracy: ${snapshot.val().accuracy}%`;
@@ -419,6 +445,15 @@ function queryUserLeaderboard() {
 					document.querySelector(".leaderboardEntry[data-entry='10'] .leaderboardTime").innerHTML = `Time: 0${mins}:${secs}`;
 				} else {
 					document.querySelector(".leaderboardEntry[data-entry='10'] .leaderboardTime").innerHTML = `Time: ${mins}:${secs}`;
+				}
+				if (snapshot.val().ranking ==  1) {
+					document.querySelector(".leaderboardEntry[data-entry='10']").style.backgroundColor = "#D9A441";
+				} else if (snapshot.val().ranking == 2) {
+					document.querySelector(".leaderboardEntry[data-entry='10']").style.backgroundColor = "#A8A8A8";
+				} else if (snapshot.val().ranking == 3) {
+					document.querySelector(".leaderboardEntry[data-entry='10']").style.backgroundColor = "#965A38";
+				} else {
+					document.querySelector(".leaderboardEntry[data-entry='10']").style.backgroundColor = "";
 				}
 			} else {
 				document.querySelector(".leaderboardEntry[data-entry='10'] .leaderboardName").innerHTML = firebase.auth().currentUser.providerData[0].displayName;
@@ -446,55 +481,76 @@ function submitHighscore() {
 		alert("score has to be atleast 1");
 		return;
 	}
+	console.log("Attempting a leaderboard push...");
 	if (firebase.auth().currentUser != null) {
 		let uid = firebase.auth().currentUser.uid;
 		db.ref("scores/" + uid).once("value").then(function(snapshot) {
 			db.ref("scores").orderByChild("score").startAt(save.score).limitToFirst(1).once("value").then(function(snap) {
-				let ranking = 1;
-				if (snap.val()) {
-					snap.forEach(function(child) {
-						ranking = child.val().ranking + 1;
-						if (child.key == uid) {
-							ranking = child.val().ranking;
-						}
-          });
-				}
-				console.log("Leaderboard position found: #" + ranking);
-				db.ref("scores").orderByChild("ranking").once("value").then(function(shot) {
-					console.log("updating leaderboard positions");
-					shot.forEach(function(child) {
-						if (ranking <= child.val().ranking && child.key != uid) {
-							let rank = child.val().ranking + 1;
-							db.ref("scores/" + child.key).update({
-								ranking: rank
+				db.ref("scores").orderByChild("ranking").limitToLast(1).once("value").then(function(last) {
+					let ranking = 1;
+					if (snap.val()) {
+						snap.forEach(function(child) {
+							ranking = child.val().ranking + 1;
+							if (child.key == uid) {
+								ranking = child.val().ranking;
+								return;
+							}
+							if (last.val()) {
+								last.forEach(function(lastChild) {
+									if (child.key == lastChild.key) {
+										ranking--;
+										console.log("kek");
+									}
+								});
+							}
+	          });
+					}
+					console.log("Leaderboard position found: #" + ranking);
+					db.ref("scores").orderByChild("ranking").once("value").then(function(shot) {
+						console.log("updating leaderboard positions");
+						shot.forEach(function(child) {
+							if (!snapshot.val()) {
+								console.log("No database entry found.");
+							} else if (ranking <= child.val().ranking && ranking < snapshot.val().ranking && child.key != uid) {
+								db.ref("scores/" + child.key).update({
+									ranking: child.val().ranking + 1
+								});
+								console.log("user: " + child.val().name + " has been shifted from #" + child.val().ranking + " to #" + (child.val().ranking + 1));
+							} else if (ranking >= child.val().ranking && snapshot.val().ranking <= child.val().ranking && ranking > snapshot.val().ranking && child.key != uid) {
+								db.ref("scores/" + child.key).update({
+									ranking: child.val().ranking - 1
+								});
+								console.log("user: " + child.val().name + " has been shifted from #" + child.val().ranking + " to #" + (child.val().ranking - 1));
+							}
+						});
+						if (snapshot.val()) {
+							console.log("User entry found, updating the entry...");
+							db.ref("scores/" + uid).update({
+								name: firebase.auth().currentUser.providerData[0].displayName,
+								score: save.score,
+								combo: save.combo,
+								accuracy: save.accuracy,
+								time: save.time,
+								ranking: ranking
+							}).then(function() {
+								console.log("Score submitted successfully!");
 							});
-							console.log("user: " + child.val().name + " has been shifted from #" + (rank - 1) + " to #" + rank);
+						} else {
+							console.log("User entry not found, creating new entry...");
+							db.ref("scores/" + uid).set({
+								name: firebase.auth().currentUser.providerData[0].displayName,
+								score: save.score,
+								combo: save.combo,
+								accuracy: save.accuracy,
+								time: save.time,
+								ranking: ranking
+							}).then(function() {
+								console.log("Score submitted successfully!");
+							});
 						}
 					});
 				});
-				if (snapshot.val()) {
-					console.log("User entry found, updating the entry...");
-					db.ref("scores/" + uid).update({
-			      name: firebase.auth().currentUser.providerData[0].displayName,
-			      score: save.score,
-						combo: save.combo,
-						accuracy: save.accuracy,
-						time: save.time,
-						ranking: ranking
-					});
-				} else {
-					console.log("User entry not found, creating new entry...");
-					db.ref("scores/" + uid).set({
-						name: firebase.auth().currentUser.providerData[0].displayName,
-						score: save.score,
-						combo: save.combo,
-						accuracy: save.accuracy,
-						time: save.time,
-						ranking: ranking
-					});
-				}
 			});
-			console.log("Score submitted successfully!");
 		});
   } else {
 		alert("not signed in!");
@@ -669,3 +725,16 @@ const letters = [
 	document.getElementById("i"),
 	document.getElementById("t")
 ];
+
+db.ref("scores").on("child_changed", function() {
+	if (leaderboardVisible) {
+		queryLeaderboard(1);
+		queryUserLeaderboard();
+	}
+});
+db.ref("scores").on("child_added", function() {
+	if (leaderboardVisible) {
+		queryLeaderboard(1);
+		queryUserLeaderboard();
+	}
+});

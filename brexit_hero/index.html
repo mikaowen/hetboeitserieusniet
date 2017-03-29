@@ -4,13 +4,13 @@
     <link rel="icon" href="https://cdn.discordapp.com/attachments/270182417875206145/296354868455669771/hello_gays.png" type="image/png" sizes="16x16">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.7/p5.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.7.3/firebase.js"></script>
+    <script src="../js/firebase.js"></script>
     <script src="../js/help.js"></script>
     <link href="../css/brexit_hero.css" type="text/css" rel="stylesheet">
     <link href="../css/help.css" type="text/css" rel="stylesheet">
     <link href="../css/navbar.css" type="text/css" rel="stylesheet">
     <link href="../css/util.css" type="text/css" rel="stylesheet">
     <link href="../css/highscore.css" type="text/css" rel="stylesheet">
-    <script src="../js/firebase.js"></script>
   </head>
   <body>
     <div class="main-container">
@@ -79,7 +79,7 @@
         </div>
       </div>
       <ul id="button-list">
-        <li><button id="start" class="circle-button" onclick="start();" title="Start / Stop">✔</button></li>
+        <li><button id="start" class="circle-button" onclick="start();" title="Start">✔</button></li>
         <li><button id="toggleGamemode" class="circle-button" onclick="toggleGamemode();" title="Endless Mode">∞</button></li>
         <li><button id="leaderboardButton" class="circle-button" onclick="promptLeaderboard(); queryUserLeaderboard(); queryLeaderboard(1);" title="Leaderboard">🏆</button></li>
         <li><button class="info circle-button" onclick="toggleInfo();" title="Help">?</button></li>
