@@ -56,5 +56,7 @@ function signOut() {
     document.getElementById("navbar-image").style.visibility = "hidden";
     document.getElementById("navbar-username").innerHTML = "";
     console.log("Signed out.");
+    document.getElementById("navbar-username").innerHTML = "";
+    document.getElementById("navbar-image").src= "";
   });
 }
