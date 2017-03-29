@@ -11,6 +11,7 @@
   top: 50%;
   font-family: "Comic Sans MS";
   visibility: hidden;
+  overflow: scroll;
 }
 
 #scorePrompt ul {
@@ -31,6 +32,10 @@
 #leaderboard tr.leaderboardEntry {
   height: 10%;
   width: 100%;
+}
+
+#leaderboard text {
+  font-size: 25px;
 }
 
 #leaderboard td {
