@@ -1,8 +1,4 @@
-#leaderboard {
-  overflow: scroll;
-}
-
-#leaderboard-container, #scorePrompt {
+#leaderboard, #scorePrompt {
   width: 80%;
   height: 80%;
   background-color: rgba(91, 192, 222, 200);
@@ -16,6 +12,10 @@
   font-family: "Comic Sans MS";
   visibility: hidden;
   overflow: hidden;
+}
+
+#leaderboard-container {
+  overflow: scroll;
 }
 
 #scorePrompt ul {
