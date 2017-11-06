@@ -13,21 +13,10 @@ const brexit = [
 let joyRotation = 0;
 let letter = 0;
 
-updateCSS();
-
 function updateCSS() {
 	let height = document.body.offsetHeight;
 	let width = document.body.offsetWidth;
 	gif.style.left = (width / 2) - (gif.offsetWidth / 2);
-}
-
-function rotateJoy() {
-	joyRotation += 2;
-	if (joyRotation >= 360)
-		joyRotation = 0;
-	for (let i = 0; i < joy.length; i++) {
-		joy[i].style.transform = `rotate(${joyRotation}deg)`;
-	}
 }
 
 function nextLetter() {
@@ -41,6 +30,6 @@ function nextLetter() {
 		brexit[letter-1].style.visibility = "hidden";
 }
 
-setInterval(rotateJoy, 0);
-setInterval(nextLetter, 250);
+updateCSS();
 setInterval(updateCSS, 500);
+setInterval(nextLetter, 250);
