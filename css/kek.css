@@ -8,12 +8,22 @@ html {
 	margin: auto;
 }
 
+/*
+Thank you stackoverflow for this solution, owen's js implementation was horrible
+https://stackoverflow.com/questions/16771225/css3-rotate-animation
+*/
 .joy {
-	width: 15em;
-	height: 15em;
-	position: absolute;
-	top: 10px;
+    width: 15em;
+    height: 15em;
+    position: absolute;
+    top: 10px;
+    -webkit-animation:spin 4s linear infinite;
+    -moz-animation:spin 4s linear infinite;
+    animation:spin 4s linear infinite;
 }
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 
 .brexit {
 	font-size: 200px;
