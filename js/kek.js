@@ -1,4 +1,3 @@
-const joy = document.getElementsByClassName("joy");
 let height = document.body.offsetHeight;
 let width = document.body.offsetWidth;
 const gif = document.getElementById("gif");
@@ -10,7 +9,6 @@ const brexit = [
 	document.getElementById("i"),
 	document.getElementById("t")
 ];
-let joyRotation = 0;
 let letter = 0;
 
 function updateCSS() {
