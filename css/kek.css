@@ -30,6 +30,20 @@ https://stackoverflow.com/questions/16771225/css3-rotate-animation
 	visibility: hidden;
 }
 
+#letters *:nth-child(3n+1) {
+	color: white;
+}
+
+
+#letters *:nth-child(3n+2) {
+	color: red;
+}
+
+
+#letters *:nth-child(3n) {
+	color: blue;
+}
+
 .game-link {
 	color: red;
 	font-size: 20px;
@@ -39,18 +53,6 @@ https://stackoverflow.com/questions/16771225/css3-rotate-animation
 
 .game-link:hover {
 	color: #ff6666;
-}
-
-#b, #x {
-	color: white;
-}
-
-#r, #i {
-	color: red;
-}
-
-#e, #t {
-	color: blue;
 }
 
 #gif {
