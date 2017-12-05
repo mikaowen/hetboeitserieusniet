@@ -25,7 +25,7 @@ https://stackoverflow.com/questions/16771225/css3-rotate-animation
 @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 
-.brexit {
+#letters * {
 	font-size: 200px;
 	visibility: hidden;
 }
@@ -56,7 +56,7 @@ https://stackoverflow.com/questions/16771225/css3-rotate-animation
 #gif {
 	position: absolute;
 	bottom: 5%;
-	left: 50%;
+	left: calc(50vw-265px/2);
 }
 
 #brexitGame {
@@ -82,8 +82,3 @@ https://stackoverflow.com/questions/16771225/css3-rotate-animation
 	color: rgba(255,0,0,0);
 }
 
-.pimssister {
-	position: absolute;
-	bottom: 5%;
-	left: 50%;
-}
