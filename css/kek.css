@@ -56,7 +56,7 @@ https://stackoverflow.com/questions/16771225/css3-rotate-animation
 #gif {
 	position: absolute;
 	bottom: 5%;
-	left: calc(50vw-265/2);
+	left: calc(50vw-265px/2);
 }
 
 #brexitGame {
